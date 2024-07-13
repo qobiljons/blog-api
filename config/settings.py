@@ -43,8 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'core',
-
+    'blogs',
+    'likes',
+    'tags',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
