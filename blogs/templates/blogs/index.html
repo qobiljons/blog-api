@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog API Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1, h2, h3, h4 {
+            color: #333;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+            z-index: 1; /* Ensure button appears on top of pre element */
+        }
+
+        .copy-btn:hover {
+            background: #45a049;
+        }
+
+        .endpoint {
+            border-left: 5px solid #4CAF50;
+            padding-left: 10px;
+            margin-bottom: 20px;
+        }
+
+        .endpoint h3 {
+            margin-top: 0;
+        }
+
+        .request, .response {
+            margin: 10px 0;
+        }
+
+        .note {
+            background: #e7f3fe;
+            border-left: 5px solid #2196F3;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Blog API Documentation</h1>
+        <p>Welcome to the Blog API documentation. This API allows you to manage blog posts, comments, and user accounts programmatically.</p>
+
+        <h2>Base URL</h2>
+        <p>The base URL for all API requests is:</p>
+        <pre><code id="base-url">https://yourapi.com/api/</code><button class="copy-btn" onclick="copyToClipboard('base-url')">Copy</button></pre>
+
+        <h2>Authentication</h2>
+        <p>All endpoints require authentication via a token. You must include the token in the <code>Authorization</code> header of your requests.</p>
+        <pre><code id="auth-header">Authorization: Bearer &lt;your-token&gt;</code><button class="copy-btn" onclick="copyToClipboard('auth-header')">Copy</button></pre>
+
+        <h2>Endpoints</h2>
+
+        <div class="endpoint">
+            <h3>User Endpoints</h3>
+
+            <h4>Register a New User</h4>
+            <div class="request">
+                <strong>Endpoint:</strong> <code>POST /users/register/</code>
+            </div>
+            <div class="request">
+                <strong>Request Body:</strong>
+                <pre><code id="register-request">{
+    "username": "string",
+    "password": "string",
+    "email": "string"
+}</code><button class="copy-btn" onclick="copyToClipboard('register-request')">Copy</button></pre>
+            </div>
+            <div class="response">
+                <strong>Response:</strong>
+                <pre><code id="register-response">{
+    "id": "integer",
+    "username": "string",
+    "email": "string"
+}</code><button class="copy-btn" onclick="copyToClipboard('register-response')">Copy</button></pre>
+            </div>
+
+            <h4>Login</h4>
+            <div class="request">
+                <strong>Endpoint:</strong> <code>POST /users/login/</code>
+            </div>
+            <div class="request">
+                <strong>Request Body:</strong>
+                <pre><code id="login-request">{
+    "username": "string",
+    "password": "string"
+}</code><button class="copy-btn" onclick="copyToClipboard('login-request')">Copy</button></pre>
+            </div>
+            <div class="response">
+                <strong>Response:</strong>
+                <pre><code id="login-response">{
+    "token": "string"
+}</code><button class="copy-btn" onclick="copyToClipboard('login-response')">Copy</button></pre>
+            </div>
+        </div>
+
+        <!-- Add more endpoints here -->
+
+    </div>
+
+</body>
+</html>
