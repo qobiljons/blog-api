@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog API Documentation</title>
+    <title>Get Started with Blog API</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -105,63 +105,51 @@
 <body>
     <div class="container">
         <a href="/" class="homepage-link">← Back to Homepage</a>
-        <h1>Blog API Documentation</h1>
-        <p>Welcome to the Blog API documentation. This API allows you to manage blog posts, comments, and user accounts programmatically.</p>
+        <h1>Get Started with Blog API</h1>
+        <p>Welcome! This guide will help you get started with the Blog API, allowing you to manage blog posts, comments, and user accounts programmatically.</p>
 
-        <h2>Base URL</h2>
-        <p>The base URL for all API requests is:</p>
+        <h2>Step 1: Base URL</h2>
+        <p>All API requests are made to the following base URL:</p>
         <pre><code id="base-url">https://yourapi.com/api/</code><button class="copy-btn" onclick="copyToClipboard('base-url')">Copy</button></pre>
 
-        <h2>Authentication</h2>
+        <h2>Step 2: Authentication</h2>
         <p>All endpoints require authentication via a token. You must include the token in the <code>Authorization</code> header of your requests.</p>
         <pre><code id="auth-header">Authorization: Bearer &lt;your-token&gt;</code><button class="copy-btn" onclick="copyToClipboard('auth-header')">Copy</button></pre>
 
-        <h2>Endpoints</h2>
-
-        <div class="endpoint">
-            <h3>User Endpoints</h3>
-
-            <h4>Register a New User</h4>
-            <div class="request">
-                <strong>Endpoint:</strong> <code>POST /users/register/</code>
-            </div>
-            <div class="request">
-                <strong>Request Body:</strong>
-                <pre><code id="register-request">{
+        <h2>Step 3: Register a New User</h2>
+        <p>Register a new user by sending a <code>POST</code> request to the following endpoint:</p>
+        <pre><code id="register-endpoint">POST /users/register/</code><button class="copy-btn" onclick="copyToClipboard('register-endpoint')">Copy</button></pre>
+        <p>Request Body:</p>
+        <pre><code id="register-request">{
     "username": "string",
     "password": "string",
     "email": "string"
 }</code><button class="copy-btn" onclick="copyToClipboard('register-request')">Copy</button></pre>
-            </div>
-            <div class="response">
-                <strong>Response:</strong>
-                <pre><code id="register-response">{
+        <p>Response:</p>
+        <pre><code id="register-response">{
     "id": "integer",
     "username": "string",
     "email": "string"
 }</code><button class="copy-btn" onclick="copyToClipboard('register-response')">Copy</button></pre>
-            </div>
 
-            <h4>Login</h4>
-            <div class="request">
-                <strong>Endpoint:</strong> <code>POST /users/login/</code>
-            </div>
-            <div class="request">
-                <strong>Request Body:</strong>
-                <pre><code id="login-request">{
+        <h2>Step 4: Login</h2>
+        <p>Login by sending a <code>POST</code> request to the following endpoint:</p>
+        <pre><code id="login-endpoint">POST /users/login/</code><button class="copy-btn" onclick="copyToClipboard('login-endpoint')">Copy</button></pre>
+        <p>Request Body:</p>
+        <pre><code id="login-request">{
     "username": "string",
     "password": "string"
 }</code><button class="copy-btn" onclick="copyToClipboard('login-request')">Copy</button></pre>
-            </div>
-            <div class="response">
-                <strong>Response:</strong>
-                <pre><code id="login-response">{
+        <p>Response:</p>
+        <pre><code id="login-response">{
     "token": "string"
 }</code><button class="copy-btn" onclick="copyToClipboard('login-response')">Copy</button></pre>
-            </div>
-        </div>
 
-        <!-- Add more endpoints here -->
+        <h2>Step 5: Using the Token</h2>
+        <p>Include the token in the <code>Authorization</code> header of all subsequent requests:</p>
+        <pre><code id="auth-example">curl -H "Authorization: Bearer &lt;your-token&gt;" https://yourapi.com/api/posts/</code><button class="copy-btn" onclick="copyToClipboard('auth-example')">Copy</button></pre>
+
+        <!-- Add more steps here as needed -->
 
     </div>
 

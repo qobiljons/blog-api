@@ -3,140 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog API Documentation</title>
+    <title>Welcome to Blog API</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        body, html {
+            height: 100%;
             margin: 0;
-            padding: 0;
-            line-height: 1.6;
+            font-family: Arial, sans-serif;
         }
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-        }
+        .bg-image {
+            /* The image used */
+            background-image: url('https://wallpapers.com/images/file/4k-nature-arched-bridge-0hr6n0eprs2s9b8c.jpg');
 
-        h1, h2, h3, h4 {
-            color: #333;
-        }
+            /* Full height */
+            height: 100%;
 
-        pre {
-            background: #f4f4f4;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-size: cover;
+
+            /* Positioning context for the text */
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            /* Gradient overlay */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://wallpapers.com/images/file/4k-nature-arched-bridge-0hr6n0eprs2s9b8c.jpg');
+            background-size: cover;
         }
 
-        code {
-            background: #f4f4f4;
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
-
-        .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #4CAF50;
+        .content {
             color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 3px;
-            z-index: 1; /* Ensure button appears on top of pre element */
+            animation: fadeIn 2s;
+            max-width: 600px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
         }
 
-        .copy-btn:hover {
-            background: #45a049;
-        }
-
-        .endpoint {
-            border-left: 5px solid #4CAF50;
-            padding-left: 10px;
+        .title {
+            font-size: 3em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
         }
 
-        .endpoint h3 {
-            margin-top: 0;
+        .description {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
 
-        .request, .response {
-            margin: 10px 0;
-        }
-
-        .note {
-            background: #e7f3fe;
-            border-left: 5px solid #2196F3;
-            padding: 10px;
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
             border-radius: 5px;
-            margin: 10px 0;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Blog API Documentation</h1>
-        <p>Welcome to the Blog API documentation. This API allows you to manage blog posts, comments, and user accounts programmatically.</p>
-
-        <h2>Base URL</h2>
-        <p>The base URL for all API requests is:</p>
-        <pre><code id="base-url">https://yourapi.com/api/</code><button class="copy-btn" onclick="copyToClipboard('base-url')">Copy</button></pre>
-
-        <h2>Authentication</h2>
-        <p>All endpoints require authentication via a token. You must include the token in the <code>Authorization</code> header of your requests.</p>
-        <pre><code id="auth-header">Authorization: Bearer &lt;your-token&gt;</code><button class="copy-btn" onclick="copyToClipboard('auth-header')">Copy</button></pre>
-
-        <h2>Endpoints</h2>
-
-        <div class="endpoint">
-            <h3>User Endpoints</h3>
-
-            <h4>Register a New User</h4>
-            <div class="request">
-                <strong>Endpoint:</strong> <code>POST /users/register/</code>
-            </div>
-            <div class="request">
-                <strong>Request Body:</strong>
-                <pre><code id="register-request">{
-    "username": "string",
-    "password": "string",
-    "email": "string"
-}</code><button class="copy-btn" onclick="copyToClipboard('register-request')">Copy</button></pre>
-            </div>
-            <div class="response">
-                <strong>Response:</strong>
-                <pre><code id="register-response">{
-    "id": "integer",
-    "username": "string",
-    "email": "string"
-}</code><button class="copy-btn" onclick="copyToClipboard('register-response')">Copy</button></pre>
-            </div>
-
-            <h4>Login</h4>
-            <div class="request">
-                <strong>Endpoint:</strong> <code>POST /users/login/</code>
-            </div>
-            <div class="request">
-                <strong>Request Body:</strong>
-                <pre><code id="login-request">{
-    "username": "string",
-    "password": "string"
-}</code><button class="copy-btn" onclick="copyToClipboard('login-request')">Copy</button></pre>
-            </div>
-            <div class="response">
-                <strong>Response:</strong>
-                <pre><code id="login-response">{
-    "token": "string"
-}</code><button class="copy-btn" onclick="copyToClipboard('login-response')">Copy</button></pre>
-            </div>
+    <div class="bg-image">
+        <div class="content">
+            <div class="title">Welcome to Blog API</div>
+            <div class="description">Explore our comprehensive API documentation and start integrating powerful blog functionalities into your application.</div>
+            <a href="{%url 'about'%}" class="button">Get Started</a>
+            <a href="{%url 'docs'%}" class="button">API Documentation</a>
         </div>
-
-        <!-- Add more endpoints here -->
-
     </div>
-
 </body>
 </html>
