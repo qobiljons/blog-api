@@ -10,6 +10,7 @@ python-dotenv = "*"
 faker = "*"
 pillow = "*"
 django-debug-toolbar = "*"
+django-filter = "*"
 
 [dev-packages]
 
