@@ -7,6 +7,9 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 python-dotenv = "*"
+faker = "*"
+pillow = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 

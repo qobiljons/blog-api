@@ -7,6 +7,10 @@ from . import models
 # Register your models here.
 
 
+@admin.register(models.Author)
+class AuthorAdmin(admin.ModelAdmin):
+    pass
+
 @admin.register(models.Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['title', 'get_blog_count']
@@ -37,11 +41,20 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(models.Blog)
 class BlogAdmin(admin.ModelAdmin):
-    pass
-
+    search_fields = ["title", "category", "author"]
+    autocomplete_fields = ['category']
+    list_display = ['title', 'author', 'category', 'created_at', 'updated_at', 'published']
+    list_per_page = 10
+    prepopulated_fields = {
+        'slug': ['title']
+    }
+    list_filter = ['category', 'updated_at', 'created_at', 'published']
 
 
 @admin.register(models.Review)
 class ReviewAdmin(admin.ModelAdmin):
-    pass
-
+    search_fields = ['blog__title', 'author__username', 'date'] 
+    autocomplete_fields = ['blog', 'author']
+    list_display = ['blog', 'author', 'rating', 'date']
+    list_filter = ['rating', 'date', 'author']
+    ordering = ['author']  
