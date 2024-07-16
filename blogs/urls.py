@@ -12,4 +12,7 @@ urlpatterns = [
     #API Views
     path('api/blogs/', views.blog_list, name="blog_list"),
     path('api/blogs/<int:id>/', views.blog_detail, name="blog_detail"),
+    path('api/categories/', views.category_list, name="category_list"),
+    path('api/categories/<int:id>/', views.category_detail, name="category_detail")
 ]
+
