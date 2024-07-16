@@ -16,7 +16,7 @@ class Category(models.Model):
         return self.title
 
 class Author(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, unique=True)
     # photo = models.ImageField()
     age = models.IntegerField()
     def __str__(self):
@@ -51,6 +51,9 @@ class Blog(models.Model):
     
     def __str__(self):
         return self.title
+    
+    class Meta:
+        unique_together = (('title', 'author'))
     
 
 class Review(models.Model):

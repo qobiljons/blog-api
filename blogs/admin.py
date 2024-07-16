@@ -82,12 +82,6 @@ class CategoryAdmin(admin.ModelAdmin):
         return queryset
     
 
-    
-    
-
-
-
-
 @admin.register(models.Blog)
 class BlogAdmin(admin.ModelAdmin):
     search_fields = ["title", "category", "author"]

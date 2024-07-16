@@ -1,6 +1,9 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-
+from django.shortcuts import render, get_object_or_404
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import BlogSerializer
+from .models import Blog
 
 # Create your views here.
 
@@ -15,5 +18,15 @@ def about(request):
 
 #API Views
 
-def blogs(request):
-    return HttpResponse("ok")
+@api_view(["GET"])
+def blog_list(request):
+    queryset = Blog.objects.all()
+    serializer = BlogSerializer(queryset, many=True)
+    return Response(serializer.data)
+
+@api_view()
+def blog_detail(request, id):
+    blog = get_object_or_404(Blog, id=id)
+    serializer = BlogSerializer(blog)
+    return Response(serializer.data)
+
