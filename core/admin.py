@@ -20,7 +20,7 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
     )   
-    list_display = ("username", "is_staff", "is_superuser", )
+    list_display = ("id","username", "is_staff", "is_superuser", )
     ordering = ["first_name", "last_name"]
     search_fields = ("first_name", "last_name", "username")
     list_per_page = 6

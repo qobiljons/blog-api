@@ -1,16 +1,30 @@
 from rest_framework import serializers
+from .models import Category, Author, Blog, Review
 
 
-class BlogSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    title = serializers.CharField(max_length=200)
-    author = serializers.CharField(max_length=200)
-    body = serializers.CharField(max_length=2000)
-    category = serializers.CharField(max_length=255)
 
-
-class Category_serializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    title = serializers.CharField(max_length=255)
+class AuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Author
+        fields = ['id', 'age', 'blogs_count', 'user']
     blogs_count = serializers.IntegerField(read_only=True)
+        
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ["id", "rating", "date", "comment", "author"]
+    
+class BlogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Blog
+        fields = ['id', 'title', 'author', 'body', 'category', 'reviews', 'created_at']
+    reviews = ReviewSerializer(many=True, read_only=True)
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Category
+        fields = ["id", "title", "blogs_count"]
+    blogs_count = serializers.IntegerField(read_only=True)
+
+
 

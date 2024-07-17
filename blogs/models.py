@@ -11,7 +11,7 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'categories'
         verbose_name = 'category'
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, unique=True)
     def __str__(self):
         return self.title
 
@@ -47,7 +47,7 @@ class Blog(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     published = models.CharField(max_length=10 ,choices=CHOICES, default='draft')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="blogs")
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="blogs")
     
     def __str__(self):
         return self.title
@@ -71,4 +71,5 @@ class Review(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="reviews")
     def __str__(self):
         return f"{self.blog.title}: Rating: {self.get_rating_display()}"
+    
 
