@@ -9,16 +9,19 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = ['id', 'age', 'blogs_count', 'user']
     blogs_count = serializers.IntegerField(read_only=True)
         
+
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ["id", "rating", "date", "comment", "author"]
     
+
 class BlogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
         fields = ['id', 'title', 'author', 'body', 'category', 'reviews', 'created_at']
     reviews = ReviewSerializer(many=True, read_only=True)
+
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
