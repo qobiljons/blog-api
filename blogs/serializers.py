@@ -6,7 +6,7 @@ from .models import Category, Author, Blog, Review
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = ['id', 'age', 'blogs_count', 'user']
+        fields = ['id', 'age', 'blogs_count', 'user', "first_name", "last_name"]
     blogs_count = serializers.IntegerField(read_only=True)
         
 
