@@ -13,7 +13,12 @@ class AuthorSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ["id", "rating", "date", "comment", "author"]
+        fields = ["id", "rating", "date", "comment", "author", "blog"]
+    blog = serializers.PrimaryKeyRelatedField(read_only = True)  
+    def create(self, validated_data):
+        blog_id = self.context["blog_id"]
+        author = self.context["author"]
+        return Review.objects.create(blog_id=blog_id, author=author, **validated_data)
     
 
 class BlogSerializer(serializers.ModelSerializer):
@@ -28,6 +33,5 @@ class CategorySerializer(serializers.ModelSerializer):
         model= Category
         fields = ["id", "title", "blogs_count"]
     blogs_count = serializers.IntegerField(read_only=True)
-
 
 

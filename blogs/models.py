@@ -54,6 +54,7 @@ class Blog(models.Model):
     
     class Meta:
         unique_together = (('title', 'author'))
+        
     
 
 class Review(models.Model):

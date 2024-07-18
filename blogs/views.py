@@ -7,8 +7,8 @@ from rest_framework.views import APIView
 from rest_framework.mixins import ListModelMixin
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.viewsets import ModelViewSet
-from .serializers import AuthorSerializer, BlogSerializer, CategorySerializer
-from .models import Blog, Category, Author
+from .serializers import AuthorSerializer, BlogSerializer, CategorySerializer, ReviewSerializer
+from .models import Blog, Category, Author, Review
 
 
 # Create your views here.
@@ -25,6 +25,7 @@ def about(request):
 def custom_404(request):
     return render(request, 'blogs/404.html')
 
+
 #API Views
 class AuthorViewSet(ModelViewSet):
     queryset = Author.objects.select_related('user').annotate(blogs_count = Count('blogs'))
@@ -32,8 +33,9 @@ class AuthorViewSet(ModelViewSet):
 
 
 class BlogViewSet(ModelViewSet):
-    queryset = Blog.objects.all().prefetch_related("reviews").order_by("-created_at")
+    queryset = Blog.objects.select_related("author", "category").prefetch_related("reviews").order_by("-created_at")
     serializer_class = BlogSerializer
+    
 
 
 class CategoryViewSet(ModelViewSet):
@@ -44,11 +46,14 @@ class CategoryViewSet(ModelViewSet):
         if Blog.objects.filter(category__id = kwargs["pk"]):
             return Response({"error": "Cannot delete a category with associated blogs"}, status=status.HTTP_405_METHOD_NOT_ALLOWED) 
         return super().destroy(request, *args, **kwargs)
-   
+    
+class ReviewViewSet(ModelViewSet):
+    def get_queryset(self):
+        return Review.objects.select_related('author').filter(blog_id=self.kwargs['blog_pk'])
+    serializer_class = ReviewSerializer
 
-
-
-
-
-
-
+    def get_serializer_context(self):
+        return {
+            "blog_id" : self.kwargs["blog_pk"],
+            "author`": self.request.user
+        }
