@@ -1,14 +1,14 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.db.models.aggregates import Count
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.mixins import ListModelMixin
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet
 from .serializers import AuthorSerializer, BlogSerializer, CategorySerializer, ReviewSerializer
 from .models import Blog, Category, Author, Review
+from .filters import BlogFilter
+from .pagination import DefaultPagination
 
 
 # Create your views here.
@@ -35,8 +35,13 @@ class AuthorViewSet(ModelViewSet):
 class BlogViewSet(ModelViewSet):
     queryset = Blog.objects.select_related("author", "category").prefetch_related("reviews").order_by("-created_at")
     serializer_class = BlogSerializer
-    
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_class = BlogFilter
+    pagination_class = DefaultPagination
+    search_fields = ["title"]
+    ordering_fields = ["title", "id"]
 
+    
 
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.annotate(blogs_count = Count('blogs')).order_by('-id')

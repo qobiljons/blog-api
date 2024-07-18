@@ -1,5 +1,5 @@
 from django_filters.rest_framework import FilterSet
-from .models import Author
+from .models import Author,Blog
 
 class AuthorFilter(FilterSet):
   class Meta:
@@ -7,4 +7,12 @@ class AuthorFilter(FilterSet):
     fields = {
       'blogs': ['exact'],
       'age': ['gt', 'lt']
+    }
+
+class BlogFilter(FilterSet):
+  class Meta:
+    model = Blog
+    fields = {
+      "category_id": ["exact"],
+      "author": ["exact"]
     }

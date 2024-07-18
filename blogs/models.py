@@ -17,7 +17,6 @@ class Category(models.Model):
 
 class Author(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, unique=True)
-    # photo = models.ImageField()
     age = models.IntegerField()
     def __str__(self):
         return self.user.username

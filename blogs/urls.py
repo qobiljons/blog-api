@@ -5,7 +5,7 @@ from rest_framework_nested import routers
 router = routers.DefaultRouter()
 router.register("authors", views.AuthorViewSet)
 router.register("category", views.CategoryViewSet)
-router.register("blogs", views.BlogViewSet)
+router.register("blogs", views.BlogViewSet, basename="blogs")
 
 blogs_router = routers.NestedDefaultRouter(router, "blogs", lookup="blog")
 blogs_router.register('reviews', views.ReviewViewSet, basename="blog-reviews")
