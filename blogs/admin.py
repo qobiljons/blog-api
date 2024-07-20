@@ -35,7 +35,7 @@ class AgeFilter(admin.SimpleListFilter):
 
 @admin.register(models.Author)
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user',  'age', "first_name", "last_name", "get_blog_count"]
+    list_display = ['id', 'user', 'user_id', 'age', "first_name", "last_name", "get_blog_count"]
     search_fields = ['user__first_name', 'user__last_name']
     list_filter = [AgeFilter]
 

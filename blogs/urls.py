@@ -19,7 +19,7 @@ urlpatterns = [
     path('docs/', views.docs, name="docs"),
     path('about/', views.about, name="about"),
     path('api/', include(router.urls)),
-    path(r'api/', include(blogs_router.urls))
+    path('api/', include(blogs_router.urls))
 ]
 
 

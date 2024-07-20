@@ -16,8 +16,8 @@ class Category(models.Model):
         return self.title
 
 class Author(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, unique=True)
-    age = models.IntegerField()
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, unique=True, related_name='author')
+    age = models.IntegerField(blank=True, null=True)
     def __str__(self):
         return self.user.username
     

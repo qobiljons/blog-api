@@ -11,6 +11,8 @@ faker = "*"
 pillow = "*"
 django-debug-toolbar = "*"
 django-filter = "*"
+djoser = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 

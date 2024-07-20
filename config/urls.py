@@ -23,8 +23,9 @@ from blogs import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
-    path('', include('blogs.urls'))
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
+    path('', include('blogs.urls')),
 ]
 
 # handler404 = 'blogs.views.custom_404'
