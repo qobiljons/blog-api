@@ -5,7 +5,10 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, ListModelMixin
+from rest_framework.viewsets import GenericViewSet
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
 from .serializers import AuthorSerializer, BlogSerializer, CategorySerializer, ReviewSerializer
 from .models import Blog, Category, Author, Review
 from .filters import BlogFilter
@@ -27,7 +30,13 @@ def custom_404(request):
     return render(request, 'blogs/404.html')
 
 # API Views
-class AuthorViewSet(ModelViewSet):
+class AuthorViewSet(
+    RetrieveModelMixin,
+    UpdateModelMixin,
+    DestroyModelMixin,
+    ListModelMixin,
+    GenericViewSet
+):
     queryset = Author.objects.select_related('user').annotate(blogs_count=Count('blogs'))
     serializer_class = AuthorSerializer
     permission_classes = [IsAuthorOrReadOnly]
