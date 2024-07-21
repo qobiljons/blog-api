@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from rest_framework import serializers
 from .models import Category, Author, Blog, Review
 
@@ -28,7 +29,10 @@ class BlogSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True, read_only=True)
     def create(self, validated_data):
         author = self.context["author"]
-        return Blog.objects.create(author=author, **validated_data)
+        try:
+            return Blog.objects.create(author=author, **validated_data)
+        except IntegrityError:
+            raise serializers.ValidationError({"error": str("You have already created blog with this title!")})
 
 
 class CategorySerializer(serializers.ModelSerializer):

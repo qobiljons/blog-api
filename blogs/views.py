@@ -64,13 +64,14 @@ class BlogViewSet(ModelViewSet):
     search_fields = ["title"]
     ordering_fields = ["title", "id"]
 
+
     def get_serializer_context(self):
-        return {
-            "author": self.request.user.author
-        }
-    
-class CategoryViewSetsudo apt-get install -f
-(ModelViewSet):
+        if self.request.method == "POST":
+            return {
+                "author": self.request.user.author
+            }
+        
+class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.annotate(blogs_count=Count('blogs')).order_by('-id')
     serializer_class = CategorySerializer
     permission_classes = [IsAdminOrReadOnly]
