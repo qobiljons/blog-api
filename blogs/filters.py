@@ -9,6 +9,7 @@ class AuthorFilter(FilterSet):
       'age': ['gt', 'lt']
     }
 
+
 class BlogFilter(FilterSet):
   class Meta:
     model = Blog

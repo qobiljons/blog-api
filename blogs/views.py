@@ -5,10 +5,9 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, ListModelMixin
+from rest_framework.mixins import  RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, ListModelMixin
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
 from .serializers import AuthorSerializer, BlogSerializer, CategorySerializer, ReviewSerializer
 from .models import Blog, Category, Author, Review
 from .filters import BlogFilter
@@ -70,7 +69,8 @@ class BlogViewSet(ModelViewSet):
             "author": self.request.user.author
         }
     
-class CategoryViewSet(ModelViewSet):
+class CategoryViewSetsudo apt-get install -f
+(ModelViewSet):
     queryset = Category.objects.annotate(blogs_count=Count('blogs')).order_by('-id')
     serializer_class = CategorySerializer
     permission_classes = [IsAdminOrReadOnly]
@@ -92,3 +92,4 @@ class ReviewViewSet(ModelViewSet):
             "blog_id": self.kwargs["blog_pk"],
             "author": self.request.user
         }
+        

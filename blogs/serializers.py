@@ -9,6 +9,7 @@ class AuthorSerializer(serializers.ModelSerializer):
     blogs_count = serializers.IntegerField(read_only=True)
     user_id = serializers.IntegerField(read_only=True)
 
+
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review

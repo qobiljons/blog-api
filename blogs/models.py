@@ -15,6 +15,7 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+
 class Author(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, unique=True, related_name='author')
     age = models.IntegerField(blank=True, null=True)
@@ -29,6 +30,7 @@ class Author(models.Model):
     @admin.display(ordering='user__last_name')
     def last_name(self):
         return self.user.last_name
+
 
 class Blog(models.Model):
     class Meta:
@@ -54,7 +56,6 @@ class Blog(models.Model):
     class Meta:
         unique_together = (('title', 'author'))
         
-    
 
 class Review(models.Model):
     CHOICES = [
