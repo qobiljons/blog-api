@@ -56,6 +56,10 @@ class Blog(models.Model):
     class Meta:
         unique_together = (('title', 'author'))
         
+class BlogImage(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name="images")
+    image = models.ImageField(upload_to='blog/images')
+
 
 class Review(models.Model):
     CHOICES = [

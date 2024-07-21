@@ -9,6 +9,8 @@ router.register("blogs", views.BlogViewSet, basename="blogs")
 
 blogs_router = routers.NestedDefaultRouter(router, "blogs", lookup="blog")
 blogs_router.register('reviews', views.ReviewViewSet, basename="blog-reviews")
+blogs_router.register('images', views.BlogImageViewSet, basename='blog-images')
+
 
 
 

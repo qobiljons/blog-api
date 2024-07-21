@@ -8,8 +8,8 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.mixins import  RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, ListModelMixin
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.decorators import action
-from .serializers import AuthorSerializer, BlogSerializer, CategorySerializer, ReviewSerializer
-from .models import Blog, Category, Author, Review
+from .serializers import AuthorSerializer, BlogSerializer, CategorySerializer, ReviewSerializer, BlogImageSerializer
+from .models import Blog, Category, Author, Review, BlogImage
 from .filters import BlogFilter
 from .pagination import DefaultPagination
 from .permissions import IsOwnerOrReadOnly, IsAdminOrReadOnly, IsAuthorOrReadOnly
@@ -55,7 +55,7 @@ class AuthorViewSet(
 
 
 class BlogViewSet(ModelViewSet):
-    queryset = Blog.objects.select_related("author", "category").prefetch_related("reviews").order_by("-created_at")
+    queryset = Blog.objects.select_related("author", "category").prefetch_related("reviews", "images").order_by("-created_at")
     serializer_class = BlogSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = BlogFilter
@@ -63,7 +63,6 @@ class BlogViewSet(ModelViewSet):
     permission_classes = [IsOwnerOrReadOnly]
     search_fields = ["title"]
     ordering_fields = ["title", "id"]
-
 
     def get_serializer_context(self):
         if self.request.method == "POST":
@@ -93,4 +92,14 @@ class ReviewViewSet(ModelViewSet):
             "blog_id": self.kwargs["blog_pk"],
             "author": self.request.user
         }
-        
+    
+class BlogImageViewSet(ModelViewSet):
+    serializer_class = BlogImageSerializer
+    def get_serializer_context(self):
+        return {
+            "blog_id": self.kwargs["blog_pk"]
+        }
+    
+    def get_queryset(self):
+        return BlogImage.objects.filter(blog_id=self.kwargs['blog_pk'])
+    

@@ -1,6 +1,6 @@
 from django.db import IntegrityError
 from rest_framework import serializers
-from .models import Category, Author, Blog, Review
+from .models import Category, Author, Blog, Review, BlogImage   
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -20,19 +20,30 @@ class ReviewSerializer(serializers.ModelSerializer):
         blog_id = self.context["blog_id"]
         author = self.context["author"]
         return Review.objects.create(blog_id=blog_id, author=author, **validated_data)
-    
+
+class BlogImageSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        blog_id = self.context['blog_id']
+        return BlogImage.objects.create(blog_id=blog_id, **validated_data)
+
+    class Meta:
+        model = BlogImage
+        fields = ['id', 'image']
 
 class BlogSerializer(serializers.ModelSerializer):
+    reviews = ReviewSerializer(many=True, read_only=True)
     class Meta:
         model = Blog
-        fields = ['id', 'title', 'author_id', 'body', 'category', 'reviews', 'created_at']
-    reviews = ReviewSerializer(many=True, read_only=True)
+        fields = ['id', 'title', 'author_id', 'body', 'category', 'reviews', 'images', 'created_at']
+    
     def create(self, validated_data):
-        author = self.context["author"]
+        author = self.context.get("author")
+        if author is None:
+            raise serializers.ValidationError({"error": "Author is required"})
         try:
             return Blog.objects.create(author=author, **validated_data)
         except IntegrityError:
-            raise serializers.ValidationError({"error": str("You have already created blog with this title!")})
+            raise serializers.ValidationError({"error": "You have already created a blog with this title!"})
 
 
 class CategorySerializer(serializers.ModelSerializer):

@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 # from django.conf.urls import handler404
+from django.conf.urls.static import static
 from django.urls import path, include
 from debug_toolbar.toolbar import debug_toolbar_urls
 from blogs import views
@@ -27,9 +28,9 @@ urlpatterns = [
     path('auth/', include('djoser.urls.jwt')),
     path('', include('blogs.urls')),
 ]
-
 # handler404 = 'blogs.views.custom_404'
 
 
 if settings.DEBUG:
+    urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns+=debug_toolbar_urls()
