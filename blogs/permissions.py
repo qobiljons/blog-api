@@ -1,6 +1,21 @@
 from rest_framework import permissions
 
-  
+
+
+class IsBlogOwnerOrReadOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+         # Allow read-only methods for all users
+        if request.method in permissions.SAFE_METHODS:
+            return True
+    
+        def has_object_permission(self, request, view, obj):
+            if request.method in permissions.SAFE_METHODS:
+                return True
+            if request.method in ["DELETE", "PUT"]:
+                return obj.blog.author == request.user.author
+            return False
+        
+      
 class IsOwnerOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
         # Allow read-only methods for all users

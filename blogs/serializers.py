@@ -32,6 +32,7 @@ class BlogImageSerializer(serializers.ModelSerializer):
 
 class BlogSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True, read_only=True)
+    images = BlogImageSerializer(many=True, read_only=True)
     class Meta:
         model = Blog
         fields = ['id', 'title', 'author_id', 'body', 'category', 'reviews', 'images', 'created_at']

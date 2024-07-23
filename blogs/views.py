@@ -12,7 +12,7 @@ from .serializers import AuthorSerializer, BlogSerializer, CategorySerializer, R
 from .models import Blog, Category, Author, Review, BlogImage
 from .filters import BlogFilter
 from .pagination import DefaultPagination
-from .permissions import IsOwnerOrReadOnly, IsAdminOrReadOnly, IsAuthorOrReadOnly
+from .permissions import IsOwnerOrReadOnly, IsAdminOrReadOnly, IsAuthorOrReadOnly, IsBlogOwnerOrReadOnly
 
 # Create your views here.
 
@@ -69,6 +69,7 @@ class BlogViewSet(ModelViewSet):
             return {
                 "author": self.request.user.author
             }
+        return super().get_serializer_context()
         
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.annotate(blogs_count=Count('blogs')).order_by('-id')
@@ -95,6 +96,7 @@ class ReviewViewSet(ModelViewSet):
     
 class BlogImageViewSet(ModelViewSet):
     serializer_class = BlogImageSerializer
+    permission_classes = [IsBlogOwnerOrReadOnly]
     def get_serializer_context(self):
         return {
             "blog_id": self.kwargs["blog_pk"]
@@ -103,3 +105,4 @@ class BlogImageViewSet(ModelViewSet):
     def get_queryset(self):
         return BlogImage.objects.filter(blog_id=self.kwargs['blog_pk'])
     
+
