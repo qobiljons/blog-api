@@ -4,11 +4,6 @@ from rest_framework import status
 from model_bakery import baker
 from blogs.models import Category
 
-@pytest.fixture
-def create_collection(api_client):
-    def inner_func(category):
-        return api_client.post('/api/category/', category)
-    return inner_func
 
 
 @pytest.mark.django_db
@@ -46,6 +41,7 @@ class TestCreateCategory:
         assert response.status_code == status.HTTP_201_CREATED
         assert response.data['id'] > 0
  
+
 @pytest.mark.django_db
 class TestRetriveCategory:
     
