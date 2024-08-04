@@ -9,4 +9,5 @@ This Django application provides a blog platform with functionalities including 
 1. **Clone the repository:**
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/qobiljons/blog-api.git
+
